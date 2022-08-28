@@ -48,6 +48,9 @@
                 <configuration>
                     <installDirectory>target</installDirectory>
                     <workingDirectory>${basedir}</workingDirectory>
+                  <nodeDownloadRoot>https://npm.taobao.org/mirrors/node/</nodeDownloadRoot>
+                  <npmDownloadRoot>https://registry.npm.taobao.org/npm/-/</npmDownloadRoot>
+<!--                  <npmRegistryURL>https://registry.npmmirror.com</npmRegistryURL>-->
                 </configuration>
                 <executions>
                     <execution>
@@ -66,7 +69,8 @@
                             <goal>yarn</goal>
                         </goals>
                         <configuration>
-                            <arguments>install</arguments>
+                            <arguments>install --registry=https://registry.npmmirror.com</arguments>
+
                         </configuration>
                     </execution>
                 </executions>
