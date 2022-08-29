@@ -430,31 +430,32 @@
                                 </execution>
                             </executions>
                         </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-dependency-plugin</artifactId>
-                            <executions>
-                                <execution>
-                                    <id>copy-winsw-service</id>
-                                    <phase>${pkg.package.phase}</phase>
-                                    <goals>
-                                        <goal>copy</goal>
-                                    </goals>
-                                    <configuration>
-                                        <artifactItems>
-                                            <artifactItem>
-                                                <groupId>com.sun.winsw</groupId>
-                                                <artifactId>winsw</artifactId>
-                                                <classifier>bin</classifier>
-                                                <type>exe</type>
-                                                <destFileName>service.exe</destFileName>
-                                            </artifactItem>
-                                        </artifactItems>
-                                        <outputDirectory>${pkg.win.dist}</outputDirectory>
-                                    </configuration>
-                                </execution>
-                            </executions>
-                        </plugin>
+<!--                        <plugin>-->
+<!--                            <groupId>org.apache.maven.plugins</groupId>-->
+<!--                            <artifactId>maven-dependency-plugin</artifactId>-->
+<!--                            <executions>-->
+<!--                                <execution>-->
+<!--                                    <id>copy-winsw-service</id>-->
+<!--                                    <phase>${pkg.package.phase}</phase>-->
+<!--                                    <goals>-->
+<!--                                        <goal>copy</goal>-->
+<!--                                    </goals>-->
+<!--                                    <configuration>-->
+<!--                                        <artifactItems>-->
+<!--                                            <artifactItem>-->
+<!--                                                <groupId>com.sun.winsw</groupId>-->
+<!--                                                <artifactId>winsw</artifactId>-->
+<!--                                                <classifier>bin</classifier>-->
+<!--                                                <type>exe</type>-->
+<!--                                                <destFileName>service.exe</destFileName>-->
+<!--                                            </artifactItem>-->
+<!--                                        </artifactItems>-->
+<!--                                        <outputDirectory>${pkg.win.dist}</outputDirectory>-->
+<!--                                    </configuration>-->
+<!--                                </execution>-->
+<!--                            </executions>-->
+<!--                        </plugin>-->
+
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-jar-plugin</artifactId>
@@ -470,6 +471,7 @@
                                 </archive>
                             </configuration>
                         </plugin>
+
                         <plugin>
                             <groupId>org.springframework.boot</groupId>
                             <artifactId>spring-boot-maven-plugin</artifactId>
@@ -496,81 +498,81 @@
                                 </execution>
                             </executions>
                         </plugin>
-                        <plugin>
-                            <groupId>org.thingsboard</groupId>
-                            <artifactId>gradle-maven-plugin</artifactId>
-                            <configuration>
-                                <gradleProjectDirectory>${main.dir}/packaging/${pkg.type}</gradleProjectDirectory>
-                                <tasks>
-                                    <task>build</task>
-                                    <task>buildDeb</task>
-                                    <task>buildRpm</task>
-                                </tasks>
-                                <args>
-                                    <arg>-PpackagingDir=${main.dir}/packaging</arg>
-                                    <arg>-PprojectBuildDir=${basedir}/target</arg>
-                                    <arg>-PprojectVersion=${project.version}</arg>
-                                    <arg>
-                                        -PmainJar=${project.build.directory}/${project.build.finalName}-boot.${project.packaging}
-                                    </arg>
-                                    <arg>-PpkgName=${pkg.name}</arg>
-                                    <arg>-PpkgUser=${pkg.user}</arg>
-                                    <arg>-PpkgInstallFolder=${pkg.installFolder}</arg>
-                                    <arg>-PpkgCopyInstallScripts=${pkg.copyInstallScripts}</arg>
-                                    <arg>-PpkgLogFolder=${pkg.unixLogFolder}</arg>
-                                    <arg>--warning-mode</arg>
-                                    <arg>all</arg>
-                                </args>
-                            </configuration>
-                            <executions>
-                                <execution>
-                                    <phase>${pkg.package.phase}</phase>
-                                    <goals>
-                                        <goal>invoke</goal>
-                                    </goals>
-                                </execution>
-                            </executions>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-assembly-plugin</artifactId>
-                            <configuration>
-                                <finalName>${pkg.name}</finalName>
-                                <descriptors>
-                                    <descriptor>${main.dir}/packaging/${pkg.type}/assembly/windows.xml</descriptor>
-                                </descriptors>
-                            </configuration>
-                            <executions>
-                                <execution>
-                                    <id>assembly</id>
-                                    <phase>${pkg.package.phase}</phase>
-                                    <goals>
-                                        <goal>single</goal>
-                                    </goals>
-                                </execution>
-                            </executions>
-                        </plugin>
-                        <plugin>
-                            <groupId>org.apache.maven.plugins</groupId>
-                            <artifactId>maven-install-plugin</artifactId>
-                            <configuration>
-                                <file>${project.build.directory}/${pkg.name}.deb</file>
-                                <artifactId>${project.artifactId}</artifactId>
-                                <groupId>${project.groupId}</groupId>
-                                <version>${project.version}</version>
-                                <classifier>deb</classifier>
-                                <packaging>deb</packaging>
-                            </configuration>
-                            <executions>
-                                <execution>
-                                    <id>install-deb</id>
-                                    <phase>${pkg.package.phase}</phase>
-                                    <goals>
-                                        <goal>install-file</goal>
-                                    </goals>
-                                </execution>
-                            </executions>
-                        </plugin>
+<!--                        <plugin>-->
+<!--                            <groupId>org.thingsboard</groupId>-->
+<!--                            <artifactId>gradle-maven-plugin</artifactId>-->
+<!--                            <configuration>-->
+<!--                                <gradleProjectDirectory>${main.dir}/packaging/${pkg.type}</gradleProjectDirectory>-->
+<!--                                <tasks>-->
+<!--                                    <task>build</task>-->
+<!--                                    <task>buildDeb</task>-->
+<!--                                    <task>buildRpm</task>-->
+<!--                                </tasks>-->
+<!--                                <args>-->
+<!--                                    <arg>-PpackagingDir=${main.dir}/packaging</arg>-->
+<!--                                    <arg>-PprojectBuildDir=${basedir}/target</arg>-->
+<!--                                    <arg>-PprojectVersion=${project.version}</arg>-->
+<!--                                    <arg>-->
+<!--                                        -PmainJar=${project.build.directory}/${project.build.finalName}-boot.${project.packaging}-->
+<!--                                    </arg>-->
+<!--                                    <arg>-PpkgName=${pkg.name}</arg>-->
+<!--                                    <arg>-PpkgUser=${pkg.user}</arg>-->
+<!--                                    <arg>-PpkgInstallFolder=${pkg.installFolder}</arg>-->
+<!--                                    <arg>-PpkgCopyInstallScripts=${pkg.copyInstallScripts}</arg>-->
+<!--                                    <arg>-PpkgLogFolder=${pkg.unixLogFolder}</arg>-->
+<!--                                    <arg>&#45;&#45;warning-mode</arg>-->
+<!--                                    <arg>all</arg>-->
+<!--                                </args>-->
+<!--                            </configuration>-->
+<!--                            <executions>-->
+<!--                                <execution>-->
+<!--                                    <phase>${pkg.package.phase}</phase>-->
+<!--                                    <goals>-->
+<!--                                        <goal>invoke</goal>-->
+<!--                                    </goals>-->
+<!--                                </execution>-->
+<!--                            </executions>-->
+<!--                        </plugin>-->
+<!--                        <plugin>-->
+<!--                            <groupId>org.apache.maven.plugins</groupId>-->
+<!--                            <artifactId>maven-assembly-plugin</artifactId>-->
+<!--                            <configuration>-->
+<!--                                <finalName>${pkg.name}</finalName>-->
+<!--                                <descriptors>-->
+<!--                                    <descriptor>${main.dir}/packaging/${pkg.type}/assembly/windows.xml</descriptor>-->
+<!--                                </descriptors>-->
+<!--                            </configuration>-->
+<!--                            <executions>-->
+<!--                                <execution>-->
+<!--                                    <id>assembly</id>-->
+<!--                                    <phase>${pkg.package.phase}</phase>-->
+<!--                                    <goals>-->
+<!--                                        <goal>single</goal>-->
+<!--                                    </goals>-->
+<!--                                </execution>-->
+<!--                            </executions>-->
+<!--                        </plugin>-->
+<!--                        <plugin>-->
+<!--                            <groupId>org.apache.maven.plugins</groupId>-->
+<!--                            <artifactId>maven-install-plugin</artifactId>-->
+<!--                            <configuration>-->
+<!--                                <file>${project.build.directory}/${pkg.name}.deb</file>-->
+<!--                                <artifactId>${project.artifactId}</artifactId>-->
+<!--                                <groupId>${project.groupId}</groupId>-->
+<!--                                <version>${project.version}</version>-->
+<!--                                <classifier>deb</classifier>-->
+<!--                                <packaging>deb</packaging>-->
+<!--                            </configuration>-->
+<!--                            <executions>-->
+<!--                                <execution>-->
+<!--                                    <id>install-deb</id>-->
+<!--                                    <phase>${pkg.package.phase}</phase>-->
+<!--                                    <goals>-->
+<!--                                        <goal>install-file</goal>-->
+<!--                                    </goals>-->
+<!--                                </execution>-->
+<!--                            </executions>-->
+<!--                        </plugin>-->
                     </plugins>
                 </pluginManagement>
             </build>
